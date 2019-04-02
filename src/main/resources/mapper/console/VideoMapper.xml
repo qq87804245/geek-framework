@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geekcattle.mapper.console.VideoMapper">
+
+	<!--基础列-->
+	<sql id="Base_Column_List">
+		id,name,create_time,update_time,status,file_path,video_file,size,type
+	</sql>
+
+	<!--根据Id查询-->
+	<select id="getVideoById"  resultType="Video" parameterType="Video">
+		select <include refid="Base_Column_List"/> from video where id=#{id}
+	</select>
+
+	<!--多条件查询-->
+	<select id="getVideoByParams"  resultType="Video" parameterType="Video">
+		select <include refid="Base_Column_List"/> from video
+		where 1=1 
+		<if test="id != null"> and id=#{id}</if>
+		<if test="name != null"> and name=#{name}</if>
+		<if test="createTime != null"> and create_time=#{createTime}</if>
+		<if test="updateTime != null"> and update_time=#{updateTime}</if>
+		<if test="status != null"> and status=#{status}</if>
+		<if test="filePath != null"> and file_path=#{filePath}</if>
+		<if test="videoFile != null"> and video_file=#{videoFile}</if>
+		<if test="size != null"> and size=#{size}</if>
+		<if test="type != null"> and type=#{type}</if>
+	</select>
+
+	<!--添加-->	<insert id="addVideo"  parameterType="Video">
+		insert into video
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+			<if test="createTime != null">create_time,</if>
+			<if test="updateTime != null">update_time,</if>
+			<if test="status != null">status,</if>
+			<if test="filePath != null">file_path,</if>
+			<if test="videoFile != null">video_file,</if>
+			<if test="size != null">size,</if>
+			<if test="type != null">type,</if> 		</trim>	
+		<trim prefix="values (" suffix=")" suffixOverrides="," > 
+			<if test="id != null ">#{id},</if>
+			<if test="name != null ">#{name},</if>
+			<if test="createTime != null ">#{createTime},</if>
+			<if test="updateTime != null ">#{updateTime},</if>
+			<if test="status != null ">#{status},</if>
+			<if test="filePath != null ">#{filePath},</if>
+			<if test="videoFile != null ">#{videoFile, jdbcType=BLOB},</if>
+			<if test="size != null ">#{size},</if>
+			<if test="type != null ">#{type},</if>
+		</trim>
+	</insert>
+
+	<!--根据Id修改-->	<update id="updateVideoById" parameterType="Video">
+		update video
+		<set>
+			<if test="name != null">name=#{name},</if>
+			<if test="createTime != null">create_time=#{createTime},</if>
+			<if test="updateTime != null">update_time=#{updateTime},</if>
+			<if test="status != null">status=#{status},</if>
+			<if test="filePath != null">file_path=#{filePath},</if>
+			<if test="videoFile != null">video_file=#{videoFile},</if>
+			<if test="size != null">size=#{size},</if>
+			<if test="type != null">type=#{type},</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<!--根据Id删除-->	<delete id="deleteVideoById" parameterType="Video">
+		delete from video where id=#{id}
+	</delete>
+</mapper>

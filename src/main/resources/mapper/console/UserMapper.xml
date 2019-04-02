@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geekcattle.mapper.console.UserMapper">
+
+	<!--基础列-->
+	<sql id="Base_Column_List">
+		userid,username,password,name,sex,birthday,phone,email,photo,token,status,firsttime,lasttime
+	</sql>
+	
+	<select id="login" resultType="com.geekcattle.model.console.User" parameterType="com.geekcattle.model.console.User">
+		select <include refid="Base_Column_List"/> from user where username=#{username} and password=#{password}
+	</select>
+	
+	<!--根据Id查询-->
+	<select id="getUserById"  resultType="com.geekcattle.model.console.User" parameterType="com.geekcattle.model.console.User">
+		select <include refid="Base_Column_List"/> from user where id=#{id}
+	</select>
+
+	<!--多条件查询-->
+	<select id="getUserByParams"  resultType="com.geekcattle.model.console.User" parameterType="com.geekcattle.model.console.User">
+		select <include refid="Base_Column_List"/> from user
+		where 1=1 
+		<if test="userid != null"> and userid=#{userid}</if>
+		<if test="username != null"> and username=#{username}</if>
+		<if test="password != null"> and password=#{password}</if>
+		<if test="name != null"> and name=#{name}</if>
+		<if test="sex != null"> and sex=#{sex}</if>
+		<if test="birthday != null"> and birthday=#{birthday}</if>
+		<if test="phone != null"> and phone=#{phone}</if>
+		<if test="email != null"> and email=#{email}</if>
+		<if test="photo != null"> and photo=#{photo}</if>
+		<if test="token != null"> and token=#{token}</if>
+		<if test="status != null"> and status=#{status}</if>
+		<if test="firsttime != null"> and firsttime=#{firsttime}</if>
+		<if test="lasttime != null"> and lasttime=#{lasttime}</if>
+	</select>
+
+	<!--添加-->	<insert id="addUser"  parameterType="com.geekcattle.model.console.User">
+		insert into user
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="userid != null">userid,</if>
+			<if test="username != null">username,</if>
+			<if test="password != null">password,</if>
+			<if test="name != null">name,</if>
+			<if test="sex != null">sex,</if>
+			<if test="birthday != null">birthday,</if>
+			<if test="phone != null">phone,</if>
+			<if test="email != null">email,</if>
+			<if test="photo != null">photo,</if>
+			<if test="token != null">token,</if>
+			<if test="status != null">status,</if>
+			<if test="firsttime != null">firsttime,</if>
+			<if test="lasttime != null">lasttime,</if> 		</trim>	
+		<trim prefix="values (" suffix=")" suffixOverrides="," > 
+			<if test="userid != null ">#{userid},</if>
+			<if test="username != null ">#{username},</if>
+			<if test="password != null ">#{password},</if>
+			<if test="name != null ">#{name},</if>
+			<if test="sex != null ">#{sex},</if>
+			<if test="birthday != null ">#{birthday},</if>
+			<if test="phone != null ">#{phone},</if>
+			<if test="email != null ">#{email},</if>
+			<if test="photo != null ">#{photo},</if>
+			<if test="token != null ">#{token},</if>
+			<if test="status != null ">#{status},</if>
+			<if test="firsttime != null ">#{firsttime},</if>
+			<if test="lasttime != null ">#{lasttime},</if>
+		</trim>
+	</insert>
+
+	<!--根据Id修改-->	<update id="updateUserById" parameterType="com.geekcattle.model.console.User">
+		update user
+		<set>
+			<if test="userid != null">userid=#{userid},</if>
+			<if test="username != null">username=#{username},</if>
+			<if test="password != null">password=#{password},</if>
+			<if test="name != null">name=#{name},</if>
+			<if test="sex != null">sex=#{sex},</if>
+			<if test="birthday != null">birthday=#{birthday},</if>
+			<if test="phone != null">phone=#{phone},</if>
+			<if test="email != null">email=#{email},</if>
+			<if test="photo != null">photo=#{photo},</if>
+			<if test="token != null">token=#{token},</if>
+			<if test="status != null">status=#{status},</if>
+			<if test="firsttime != null">firsttime=#{firsttime},</if>
+			<if test="lasttime != null">lasttime=#{lasttime},</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<!--根据Id删除-->	<delete id="deleteUserById" parameterType="com.geekcattle.model.console.User">
+		delete from user where id=#{id}
+	</delete>
+</mapper>

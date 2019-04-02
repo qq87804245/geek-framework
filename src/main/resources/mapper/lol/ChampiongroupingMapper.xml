@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geekcattle.mapper.lol.ChampiongroupingMapper">
+
+	<!--基础列 -->
+	<sql id="Base_Column_List">
+		id,name,champions
+	</sql>
+
+	<!--根据Id查询 -->
+	<select id="getChampiongroupingById" resultType="Championgrouping"
+		parameterType="Championgrouping">
+		select
+		<include refid="Base_Column_List" />
+		from championgrouping where id=#{id}
+	</select>
+
+	<!--多条件查询 -->
+	<select id="getChampiongroupingByParams" resultType="Championgrouping"
+		parameterType="Championgrouping">
+		select
+		<include refid="Base_Column_List" />
+		from championgrouping
+		where 1=1
+		<if test="id != null"> and id=#{id}</if>
+		<if test="name != null"> and name=#{name}</if>
+		<if test="champions != null"> and champions=#{champions}</if>
+	</select>
+
+	<!--添加 -->	<insert id="addChampiongrouping" parameterType="Championgrouping">		insert into championgrouping
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="name != null">name,</if>
+			<if test="champions != null">champions,</if>		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null ">#{id},</if>
+			<if test="name != null ">#{name},</if>
+			<if test="champions != null ">#{champions},</if>
+		</trim>
+	</insert>
+
+	<!--根据Id修改 -->	<update id="updateChampiongroupingById" parameterType="Championgrouping">		update championgrouping
+		<set>
+			<if test="name != null">name=#{name},</if>
+			<if test="champions != null">champions=#{champions},</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<!--根据Id删除 -->	<delete id="deleteChampiongroupingById" parameterType="Championgrouping"> delete		from championgrouping where id=#{id}
+	</delete></mapper>

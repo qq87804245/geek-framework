@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.geekcattle.mapper.lol.ChampionMapper">
+
+	<!--基础列 -->
+	<sql id="Base_Column_List">
+		id,title,name,voucher,currency,grouping,headportrait,releasedate
+	</sql>
+
+	<!--根据Id查询 -->
+	<select id="getChampionById" resultType="Champion"
+		parameterType="Champion">
+		select
+		<include refid="Base_Column_List" />
+		from champion where id=#{id}
+	</select>
+
+	<!--多条件查询 -->
+	<select id="getChampionByParams" resultType="Champion"
+		parameterType="Champion">
+		select
+		<include refid="Base_Column_List" />
+		from champion
+		where 1=1
+		<if test="id != null"> and id=#{id}</if>
+		<if test="title != null"> and title=#{title}</if>
+		<if test="name != null"> and name=#{name}</if>
+		<if test="voucher != null"> and voucher=#{voucher}</if>
+		<if test="currency != null"> and currency=#{currency}</if>
+		<if test="grouping != null"> and grouping=#{grouping}</if>
+		<if test="headportrait != null"> and headportrait=#{headportrait}</if>
+		<if test="releasedate != null"> and releasedate=#{releasedate}</if>
+	</select>
+	<!--查询全部 -->
+<!-- <select id="getChampionAll" resultType="Champion"> -->
+	<!-- select <include refid="Base_Column_List"/> from champion -->
+	<!-- </select> -->
+
+	<select id="getChampionAll" resultType="Champion">
+		select * from Champion where id not in(
+		select b.id from ChampionAndSummoner a
+		inner join Champion b on a.ChampionId=b.id
+		where a.SummonerId='87804245' and a.SummonerServerId = #{serverid}
+		order by b.id
+		)
+		<if test="keyword != null"> and (title like '%${keyword}%' or name like
+			'%${keyword}%')</if>
+	</select>
+
+	<!--添加 -->	<insert id="addChampion" parameterType="Champion">		insert into champion
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">id,</if>
+			<if test="title != null">title,</if>
+			<if test="name != null">name,</if>
+			<if test="voucher != null">voucher,</if>
+			<if test="currency != null">currency,</if>
+			<if test="grouping != null">grouping,</if>
+			<if test="headportrait != null">headportrait,</if>
+			<if test="releasedate != null">releasedate,</if>		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null ">#{id},</if>
+			<if test="title != null ">#{title},</if>
+			<if test="name != null ">#{name},</if>
+			<if test="voucher != null ">#{voucher},</if>
+			<if test="currency != null ">#{currency},</if>
+			<if test="grouping != null ">#{grouping},</if>
+			<if test="headportrait != null ">#{headportrait},</if>
+			<if test="releasedate != null ">#{releasedate},</if>
+		</trim>
+	</insert>
+
+	<!--根据Id修改 -->	<update id="updateChampionById" parameterType="Champion">		update champion
+		<set>
+			<if test="title != null">title=#{title},</if>
+			<if test="name != null">name=#{name},</if>
+			<if test="voucher != null">voucher=#{voucher},</if>
+			<if test="currency != null">currency=#{currency},</if>
+			<if test="grouping != null">grouping=#{grouping},</if>
+			<if test="headportrait != null">headportrait=#{headportrait},</if>
+			<if test="releasedate != null">releasedate=#{releasedate},</if>
+		</set>
+		where id=#{id}
+	</update>
+
+	<!--根据Id删除 -->	<delete id="deleteChampionById" parameterType="Champion"> delete from		champion where id=#{id}
+	</delete></mapper>
