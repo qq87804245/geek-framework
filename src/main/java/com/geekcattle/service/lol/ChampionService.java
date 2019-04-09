@@ -1,6 +1,8 @@
 package com.geekcattle.service.lol;
 
 import javax.annotation.Resource;
+
+import com.geekcattle.util.CommonValidate;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import com.geekcattle.constants.ExceptionConstants;
@@ -57,12 +59,12 @@ public class ChampionService{
 		return data;
 	}
 
-	public ResultData<List<Champion>> getChampionAll(int serverid, String keyword) {
+	public ResultData<List<Champion>> getChampionAll(String keyword) {
 		ResultData<List<Champion>> data= new ResultData<>();
 		//多条件查询信息
 		keyword = keyword != null ? keyword.trim() : keyword;
 		
-		List<Champion> championList = championMapper.getChampionAll(serverid, keyword);
+		List<Champion> championList = championMapper.getChampionAll(keyword);
 		data.setData(championList);
 		log.info("数据请求成功,=====>返回:"+JSON.toJSONString(championList));
 		return data;
@@ -139,7 +141,7 @@ public class ChampionService{
 	 * @param request
 	 */
 	public void checkParamsId(Champion request){
-		 if(CommonUtil.isStringEmpty(request.getId())){
+		 if(CommonValidate.isStringEmpty(request.getId())){
             throw  new ServiceException(ExceptionConstants.ID_NOT_NULL);
         }
 	}
@@ -150,7 +152,7 @@ public class ChampionService{
 	 */
 	public void checkParamsForAdd(Champion request){
 		//判断是否为空
-		if(CommonUtil.isStringEmpty(request.getId())){
+		if(CommonValidate.isStringEmpty(request.getId())){
             throw  new ServiceException(ExceptionConstants.ID_NOT_NULL);
         }
 	}

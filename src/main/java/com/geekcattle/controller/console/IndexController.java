@@ -1,5 +1,6 @@
 package com.geekcattle.controller.console;
 
+import com.geekcattle.constants.ResultConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,14 +10,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/console")
 public class IndexController {
 	
-	@RequestMapping("/lol/index")
+	@RequestMapping("/index.htm")
 	public String index(){
-		return "console/lol/index";
+		return ResultConstants.viewToForward("console/index");
 	}
-	
-	@RequestMapping("/welcome/{code}")
-	@ResponseBody
-	public String welcome(@PathVariable String code){
-		return "Welcome:"+code;
+
+	@RequestMapping("/lol/info-heros.htm")
+	public String lolIndex(){
+		return ResultConstants.viewToForward("console/lol/heros");
 	}
+
+
 }

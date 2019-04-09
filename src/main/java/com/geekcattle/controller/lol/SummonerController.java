@@ -69,4 +69,5 @@ public class SummonerController{
 	public ResultData deleteSummonerById(@RequestBody Summoner request){
 		return summonerService.deleteSummonerById(request);
 	}
-}
+
+}

@@ -1,6 +1,7 @@
 package com.geekcattle.util;
 
 import java.io.File;
+import java.util.Collection;
 
 /**
  * 公共验证工具类
@@ -8,6 +9,78 @@ import java.io.File;
  * @time :  2016.02.01 16:20
  */
 public class CommonValidate {
+
+    /**
+     * 判断Integer是否为空
+     * @param integer
+     * @return
+     */
+    public static boolean isIntegerEmpty(Integer integer){
+        if(integer == null){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断Integer是否不为空
+     * @param integer
+     * @return
+     */
+    public static boolean isIntegerNotEmpty(Integer integer){
+        if(integer != null){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断字符串是否为空
+     * @param strValue
+     * @return
+     */
+    public static boolean isStringEmpty(String strValue) {
+        if(strValue == null || "".equals(strValue)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断字符串是否不为空
+     * @param strValue
+     * @return
+     */
+    public static boolean isStringNotEmpty(String strValue) {
+        if(strValue != null && !"".equals(strValue)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断集合是否为空
+     * @param colValue
+     * @return
+     */
+    public static boolean isCollectionEmpty(Collection colValue) {
+        if(colValue == null || colValue.size() == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断集合是否不为空
+     * @param colValue
+     * @return
+     */
+    public static boolean isCollectionNotEmpty(Collection colValue) {
+        if(colValue != null && colValue.size() > 0) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * 判断字符串是否为空

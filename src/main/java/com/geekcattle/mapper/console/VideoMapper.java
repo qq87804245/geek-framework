@@ -2,9 +2,10 @@ package com.geekcattle.mapper.console;
 
 import java.util.List;
 
+import com.geekcattle.core.CustomerMapper;
 import com.geekcattle.model.console.Video;
 
-public interface VideoMapper {
+public interface VideoMapper extends CustomerMapper<Video> {
 
 	/**
 	 * 根据Id查询
@@ -45,4 +46,7 @@ public interface VideoMapper {
 	 * @return
 	 */
 	public int deleteVideoById(Video video);
+
+    List<Video> queryPage(Video request);
+	int queryPageCount(Video request);
 }

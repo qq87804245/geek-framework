@@ -28,7 +28,7 @@ public interface ChampionMapper {
 	 * 
 	 * @return
 	 */
-	public List<Champion> getChampionAll(@Param("serverid") int serverid, @Param("keyword") String keyword);
+	public List<Champion> getChampionAll(@Param("keyword") String keyword);
 
 	/**
 	 * 添加

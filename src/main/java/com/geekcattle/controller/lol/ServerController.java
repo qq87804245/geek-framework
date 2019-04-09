@@ -69,4 +69,5 @@ public class ServerController{
 	public ResultData deleteServerById(@RequestBody Server request){
 		return serverService.deleteServerById(request);
 	}
-}
+
+}

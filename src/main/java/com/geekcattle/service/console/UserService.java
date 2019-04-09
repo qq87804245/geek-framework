@@ -1,6 +1,8 @@
 package com.geekcattle.service.console;
 
 import javax.annotation.Resource;
+
+import com.geekcattle.util.CommonValidate;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import com.geekcattle.constants.ExceptionConstants;
@@ -28,11 +30,11 @@ public class UserService{
 	 * @param user
 	 * @return
 	 */
-	public User login(User request){
+	public User login(User user){
 		//检查参数Id是否为空
-		checkLogin(request);
-		log.info("登录请求参数===》"+JSON.toJSONString(request));
-		User user = userMapper.login(request);
+		checkLogin(user);
+		log.info("登录请求参数===》"+JSON.toJSONString(user));
+		user = userMapper.login(user);
 		log.info("数据请求成功,=====>返回:"+JSON.toJSONString(user));
 		return user;
 	}
@@ -142,7 +144,7 @@ public class UserService{
 	 * @param request
 	 */
 	public void checkParamsId(User request){
-		 if(CommonUtil.isStringEmpty(request.getUserid().toString())){
+		 if(CommonValidate.isStringEmpty(request.getUserid().toString())){
             throw  new ServiceException(ExceptionConstants.ID_NOT_NULL);
         }
 	}
@@ -153,20 +155,20 @@ public class UserService{
 	 */
 	public void checkParamsForAdd(User request){
 		//判断是否为空
-		if(CommonUtil.isStringEmpty(request.getUserid().toString())){
+		if(CommonValidate.isStringEmpty(request.getUserid().toString())){
             throw  new ServiceException(ExceptionConstants.IS_NULL);
         }
 		//判断用户名是否为空
-		if(CommonUtil.isStringEmpty(request.getUsername())){
+		if(CommonValidate.isStringEmpty(request.getUsername())){
             throw  new ServiceException(ExceptionConstants.IS_NULL);
         }
 	}
 	
 	public String checkLogin(User request){
-		if(CommonUtil.isStringEmpty(request.getUsername())){
+		if(CommonValidate.isStringEmpty(request.getUsername())){
             throw  new ServiceException(ExceptionConstants.IS_NULL);
         }
-		if(CommonUtil.isStringEmpty(request.getPassword())){
+		if(CommonValidate.isStringEmpty(request.getPassword())){
 			throw  new ServiceException(ExceptionConstants.IS_NULL);
 		}
 		return null;

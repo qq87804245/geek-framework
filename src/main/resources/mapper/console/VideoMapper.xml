@@ -4,7 +4,7 @@
 
 	<!--基础列-->
 	<sql id="Base_Column_List">
-		id,name,create_time,update_time,status,file_path,video_file,size,type
+		id,name,create_time as createTime,update_time as updateTime,status,file_path as filePath,cover_picture as coverPicture,size,type
 	</sql>
 
 	<!--根据Id查询-->
@@ -22,52 +22,85 @@
 		<if test="updateTime != null"> and update_time=#{updateTime}</if>
 		<if test="status != null"> and status=#{status}</if>
 		<if test="filePath != null"> and file_path=#{filePath}</if>
-		<if test="videoFile != null"> and video_file=#{videoFile}</if>
+		<if test="cover_picture != null"> and cover_picture=#{coverPicture}</if>
 		<if test="size != null"> and size=#{size}</if>
 		<if test="type != null"> and type=#{type}</if>
 	</select>
 
-	<!--添加-->	<insert id="addVideo"  parameterType="Video">
+	<sql id="basePageWhere">
+		<where>
+			<if test="id != null">and id=#{id}</if>
+			<if test="name != null">and name=#{name}</if>
+			<if test="createTime != null">and create_time=#{createTime}</if>
+			<if test="updateTime != null">and update_time=#{updateTime}</if>
+			<if test="status != null">and status=#{status}</if>
+			<if test="filePath != null">and file_path=#{filePath}</if>
+			<if test="cover_picture != null">and cover_picture=#{coverPicture}</if>
+			<if test="size != null">and size=#{size}</if>
+			<if test="type != null">and type=#{type}</if>
+		</where>
+	</sql>
+
+	<select id="queryPage"  resultType="Video" parameterType="Video">
+		select <include refid="Base_Column_List"/> from video
+		<include refid="basePageWhere"/>
+
+		<if test="limit != null">
+			limit ${limit}
+		</if>
+	</select>
+	<select id="queryPageCount"  resultType="int" parameterType="Video">
+		select count(1) from video
+		<include refid="basePageWhere"/>
+	</select>
+
+
+	<!--添加-->
+	<insert id="addVideo"  parameterType="Video">
 		insert into video
 		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="id != null">id,</if>
 			<if test="name != null">name,</if>
-			<if test="createTime != null">create_time,</if>
+			create_time,
 			<if test="updateTime != null">update_time,</if>
 			<if test="status != null">status,</if>
 			<if test="filePath != null">file_path,</if>
-			<if test="videoFile != null">video_file,</if>
+			<if test="coverPicture != null">cover_picture,</if>
 			<if test="size != null">size,</if>
-			<if test="type != null">type,</if> 		</trim>	
+			<if test="type != null">type,</if> 
+		</trim>	
 		<trim prefix="values (" suffix=")" suffixOverrides="," > 
 			<if test="id != null ">#{id},</if>
 			<if test="name != null ">#{name},</if>
-			<if test="createTime != null ">#{createTime},</if>
+			now(),
 			<if test="updateTime != null ">#{updateTime},</if>
 			<if test="status != null ">#{status},</if>
 			<if test="filePath != null ">#{filePath},</if>
-			<if test="videoFile != null ">#{videoFile, jdbcType=BLOB},</if>
+			<if test="coverPicture != null ">#{coverPicture},</if>
 			<if test="size != null ">#{size},</if>
 			<if test="type != null ">#{type},</if>
 		</trim>
 	</insert>
 
-	<!--根据Id修改-->	<update id="updateVideoById" parameterType="Video">
+	<!--根据Id修改-->
+	<update id="updateVideoById" parameterType="Video">
 		update video
 		<set>
+			update_time=now(),
 			<if test="name != null">name=#{name},</if>
 			<if test="createTime != null">create_time=#{createTime},</if>
-			<if test="updateTime != null">update_time=#{updateTime},</if>
 			<if test="status != null">status=#{status},</if>
 			<if test="filePath != null">file_path=#{filePath},</if>
-			<if test="videoFile != null">video_file=#{videoFile},</if>
+			<if test="coverPicture != null">cover_picture=#{coverPicture},</if>
 			<if test="size != null">size=#{size},</if>
 			<if test="type != null">type=#{type},</if>
 		</set>
 		where id=#{id}
 	</update>
 
-	<!--根据Id删除-->	<delete id="deleteVideoById" parameterType="Video">
+	<!--根据Id删除-->
+	<delete id="deleteVideoById" parameterType="Video">
 		delete from video where id=#{id}
 	</delete>
-</mapper>
+
+</mapper>

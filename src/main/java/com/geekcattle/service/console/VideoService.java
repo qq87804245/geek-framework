@@ -1,6 +1,9 @@
 package com.geekcattle.service.console;
 
 import javax.annotation.Resource;
+
+import com.geekcattle.util.CommonValidate;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,19 +30,17 @@ public class VideoService {
 	/**
 	 * 根据id查询
 	 * 
-	 * @param request
+	 * @param video
 	 * @return
 	 */
-	public ResultData<Video> getVideoById(Video request) {
+	public Video getVideoById(Video video) {
 		// 检查参数Id是否为空
-		checkParamsId(request);
-		log.info("根据Id查询" + JSON.toJSONString(request));
-		ResultData<Video> data = new ResultData<>();
+		checkParamsId(video);
+		log.info("根据Id查询" + JSON.toJSONString(video));
 		// 根据Id查询
-		Video video = videoMapper.getVideoById(request);
-		data.setData(video);
+		video = videoMapper.getVideoById(video);
 		log.info("数据请求成功,=====>返回:" + JSON.toJSONString(video));
-		return data;
+		return video;
 	}
 
 	/**
@@ -53,7 +54,6 @@ public class VideoService {
 		ResultData<List<Video>> data = new ResultData<>();
 		// 多条件查询信息
 		List<Video> videoList = videoMapper.getVideoByParams(request);
-		Video v = videoList.get(0);
 
 		data.setData(videoList);
 		log.info("数据请求成功,=====>返回:" + JSON.toJSONString(videoList));
@@ -132,10 +132,12 @@ public class VideoService {
 	/**
 	 * 检查参数中的id是否为空
 	 * 
-	 * @param request
+	 * @param video
 	 */
-	public void checkParamsId(Video request) {
-
+	public void checkParamsId(Video video) {
+		if(CommonValidate.isIntegerEmpty(video.getId())){
+			throw  new ServiceException(ExceptionConstants.ID_NOT_NULL);
+		}
 	}
 
 	/**
@@ -147,4 +149,22 @@ public class VideoService {
 
 	}
 
+	public ResultData<List<Video>> queryPage(Video video) {
+		log.info("多条件查询信息" + JSON.toJSONString(video));
+		ResultData<List<Video>> data = new ResultData<>();
+		// 多条件查询信息
+		//List<Video> videoList = videoMapper.queryPage(request);
+
+
+		PageHelper.offsetPage(video.getOffset(), video.getLimit(), "Create_Time desc");
+		List<Video> list = videoMapper.selectAll();
+
+
+		data.setData(list);
+		//log.info("数据请求成功,=====>返回:" + JSON.toJSONString(list));
+		return data;
+	}
+	public int queryPageCount(Video request){
+		return videoMapper.queryPageCount(request);
+	}
 }

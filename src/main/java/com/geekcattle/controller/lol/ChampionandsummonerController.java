@@ -69,4 +69,5 @@ public class ChampionandsummonerController{
 	public ResultData deleteChampionandsummonerById(@RequestBody Championandsummoner request){
 		return championandsummonerService.deleteChampionandsummonerById(request);
 	}
-}
+
+}

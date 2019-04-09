@@ -27,21 +27,22 @@ public class WebConfig implements WebMvcConfigurer {
                 .maxAge(3600);
     }
 	
-	@Override
+/*	@Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthInteceptor())
         .addPathPatterns("/**")
-        .excludePathPatterns("/console/user/login", 
-        		"/console/user/register", 
+        .excludePathPatterns("/console/user/login",
+        		"/console/user/register",
         		"/login",
         		"/css/**",
         		"/fonts/**",
         		"/img/**",
         		"/js/**",
-        		"/plugins/**"
+        		"/plugins/**",
+				"/video/**"
         		);
 		
 
-    }
+    }*/
 
 }

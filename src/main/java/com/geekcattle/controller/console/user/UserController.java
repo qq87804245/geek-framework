@@ -3,15 +3,10 @@ import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import com.geekcattle.result.ResultData;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
-import com.geekcattle.constants.CommonConstants;
-import com.geekcattle.constants.LoginConstants;
 import com.geekcattle.model.console.User;
 import com.geekcattle.service.console.UserService;
 
@@ -25,28 +20,6 @@ public class UserController{
 
 	@Resource
 	private UserService userService;
-	
-	@RequestMapping("/login.htm")
-	public String login(User reqUser, Model model, HttpServletRequest request){
-		User user = userService.login(reqUser);
-		String view = null;
-		if(user != null){
-			HttpSession session = request.getSession();
-			session.setAttribute(LoginConstants.SESSION_LOGIN_USER, user);
-			
-			model.addAttribute("loginResult", CommonConstants.SUCCESS);
-			view = "console/index";
-		} else{
-			model.addAttribute("loginResult", CommonConstants.FAIL);
-			view = "login";
-		}
-		return view;
-	}
-	
-	@RequestMapping("/register")
-	public String register(User model){
-		return "";
-	}
 
 	/**
 	 * 根据Id查询
@@ -97,4 +70,5 @@ public class UserController{
 	public ResultData deleteUserById(@RequestBody User request){
 		return userService.deleteUserById(request);
 	}
-}
+
+}

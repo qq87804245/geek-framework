@@ -3,7 +3,6 @@ import java.util.List;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 
 import javax.annotation.Resource;
@@ -80,12 +79,9 @@ public class ChampionController{
 	
 	@RequestMapping("/getChampionAll")
 	@ResponseBody
-	public ResultData getChampionAll(int serverid, String keyword){
-		return championService.getChampionAll(serverid, keyword);
+	public ResultData getChampionAll(String keyword){
+		return championService.getChampionAll(keyword);
 	}
+
 	
-	@RequestMapping(value = "/index", method = {RequestMethod.GET})
-    public String index(Model model) {
-        return "index";
-    } 
-	}
+}

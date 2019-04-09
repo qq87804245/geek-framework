@@ -14,7 +14,7 @@ import lombok.Setter;
 @ApiModel(value = "video", description = "视频信息对象")
 public class Video extends Base {
 
-	private int id;
+	private Integer id;
 
 	@ApiModelProperty(value = "视频名称", name = "name", example = "视频111")
 	private String name;
@@ -27,7 +27,7 @@ public class Video extends Base {
 
 	private String filePath;
 
-	private byte[] videoFile;
+	private String coverPicture;
 
 	private String size;
 

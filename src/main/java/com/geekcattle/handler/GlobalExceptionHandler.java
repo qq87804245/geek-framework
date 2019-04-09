@@ -29,8 +29,8 @@ public class GlobalExceptionHandler {
     public Object serviceExceptionHandler(HttpServletRequest req, Exception e) throws Exception {
         ServiceException serviceException = (ServiceException) e;
         ResultData resultData = new ResultData();
-        resultData.setResultCode(ResultConstants.ERROR_CODE);
-        resultData.setResultMsg(serviceException.getResultMsg());
+        resultData.setCode(ResultConstants.ERROR_CODE);
+        resultData.setMessage(serviceException.getResultMsg());
         return resultData;
     }
 
@@ -45,8 +45,8 @@ public class GlobalExceptionHandler {
     public Object systemExceptionHandler(HttpServletRequest req, Exception e) throws Exception {
         ResultData resultData = new ResultData();
         e.printStackTrace();
-        resultData.setResultCode(ResultConstants.ERROR_CODE);
-        resultData.setResultMsg("系统异常");
+        resultData.setCode(ResultConstants.ERROR_CODE);
+        resultData.setMessage("系统异常");
         return resultData;
     }
 

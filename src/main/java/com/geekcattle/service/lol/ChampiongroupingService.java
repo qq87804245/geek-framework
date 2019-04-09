@@ -1,6 +1,8 @@
 package com.geekcattle.service.lol;
 
 import javax.annotation.Resource;
+
+import com.geekcattle.util.CommonValidate;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import com.geekcattle.constants.ExceptionConstants;
@@ -129,7 +131,7 @@ public class ChampiongroupingService{
 	 * @param request
 	 */
 	public void checkParamsId(Championgrouping request){
-		 if(CommonUtil.isStringEmpty(request.getId().toString())){
+		 if(CommonValidate.isStringEmpty(request.getId().toString())){
             throw  new ServiceException(ExceptionConstants.ID_NOT_NULL);
         }
 	}
@@ -140,7 +142,7 @@ public class ChampiongroupingService{
 	 */
 	public void checkParamsForAdd(Championgrouping request){
 		//判断是否为空
-		if(CommonUtil.isStringEmpty(request.getId().toString())){
+		if(CommonValidate.isStringEmpty(request.getId().toString())){
             throw  new ServiceException(ExceptionConstants.ID_NOT_NULL);
         }
 	}

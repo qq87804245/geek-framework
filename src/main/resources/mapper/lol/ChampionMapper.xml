@@ -36,18 +36,16 @@
 	<!-- select <include refid="Base_Column_List"/> from champion -->
 	<!-- </select> -->
 
-	<select id="getChampionAll" resultType="Champion">
-		select * from Champion where id not in(
-		select b.id from ChampionAndSummoner a
-		inner join Champion b on a.ChampionId=b.id
-		where a.SummonerId='87804245' and a.SummonerServerId = #{serverid}
-		order by b.id
-		)
-		<if test="keyword != null"> and (title like '%${keyword}%' or name like
-			'%${keyword}%')</if>
+	<select id="getChampionAll" resultType="Champion" parameterType="java.lang.String">
+		select * from Champion where 1=1
+		<if test="keyword != null">
+			and (title like '%${keyword}%' or name like '%${keyword}%')
+		</if>
 	</select>
 
-	<!--添加 -->	<insert id="addChampion" parameterType="Champion">		insert into champion
+	<!--添加 -->
+	<insert id="addChampion" parameterType="Champion">
+		insert into champion
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">id,</if>
 			<if test="title != null">title,</if>
@@ -56,7 +54,8 @@
 			<if test="currency != null">currency,</if>
 			<if test="grouping != null">grouping,</if>
 			<if test="headportrait != null">headportrait,</if>
-			<if test="releasedate != null">releasedate,</if>		</trim>
+			<if test="releasedate != null">releasedate,</if>
+		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null ">#{id},</if>
 			<if test="title != null ">#{title},</if>
@@ -69,7 +68,9 @@
 		</trim>
 	</insert>
 
-	<!--根据Id修改 -->	<update id="updateChampionById" parameterType="Champion">		update champion
+	<!--根据Id修改 -->
+	<update id="updateChampionById" parameterType="Champion">
+		update champion
 		<set>
 			<if test="title != null">title=#{title},</if>
 			<if test="name != null">name=#{name},</if>
@@ -82,5 +83,8 @@
 		where id=#{id}
 	</update>
 
-	<!--根据Id删除 -->	<delete id="deleteChampionById" parameterType="Champion"> delete from		champion where id=#{id}
-	</delete></mapper>
+	<!--根据Id删除 -->
+	<delete id="deleteChampionById" parameterType="Champion"> delete from
+		champion where id=#{id}
+	</delete>
+</mapper>

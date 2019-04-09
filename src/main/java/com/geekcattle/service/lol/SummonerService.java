@@ -1,6 +1,8 @@
 package com.geekcattle.service.lol;
 
 import javax.annotation.Resource;
+
+import com.geekcattle.util.CommonValidate;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import com.geekcattle.constants.ExceptionConstants;
@@ -129,7 +131,7 @@ public class SummonerService{
 	 * @param request
 	 */
 	public void checkParamsId(Summoner request){
-		 if(CommonUtil.isStringEmpty(request.getUsername())){
+		 if(CommonValidate.isStringEmpty(request.getUsername())){
             throw  new ServiceException(ExceptionConstants.ID_NOT_NULL);
         }
 	}
