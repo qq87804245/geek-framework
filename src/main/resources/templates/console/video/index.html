@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="console/header">
+
+</head>
+
+<body>
+
+<div class="ibox-content">
+    <div class="row row-lg">
+        <div class="col-sm-12">
+            <div id="toolbar">
+                <a href="/console/video/info-video-from.htm?referer=add" class="btn btn-primary">添加</a>
+            </div>
+            <table id="DataGrid" data-mobile-responsive="true"></table>
+
+        </div>
+    </div>
+</div>
+
+<div th:include="console/footer"></div>
+</body>
+
+
+<script>
+    var $table = $("#DataGrid");
+    $(function () {
+        initDataGrid();
+    });
+
+    function initDataGrid() {
+        $table.bootstrapTable({
+            //height : tableModel.getHeight(),
+            idField: "id",
+            columns: [
+                {title: "Id", field: "id"},
+                {title: "姓名", field: "name"},
+                {title: "大小", field: "size"},
+                {title: "类型", field: "type"},
+                {title: "状态", field: "status"},
+                {title: "创建时间", field: "createTime"},
+                {title: "修改时间", field: "updateTime"},
+                {title: "文件路径", field: "filePath"},
+                {title: "封面图片", field: "coverPicture"},
+                {title: "操作", field: "operate", align: 'center', events: operateEvents, formatter: operateFormatter}
+            ],
+            url: '/console/video/list',
+            queryParams: function (params) {
+                console.log("params", params);
+                return params;
+                /*{
+                    pageSize : params.limit, //每一页的数据行数，默认是上面设置的10(pageSize)
+                    pageIndex : (params.offset / params.limit) + 1, //当前页面,默认是上面设置的1(pageNumber)
+                };*/
+            },
+            responseHandler: function (res) {
+                console.log("res", res);
+                return {
+                    rows: res.data.list,
+                    total: res.data.total
+                }
+            },
+            striped: true,//设置为 true 会有隔行变色效果
+            search: true,
+            undefinedText: "空",//当数据为 undefined 时显示的字符
+            showToggle: "true",//是否显示 切换试图（table/card）按钮
+            showColumns: "true",//是否显示 内容列下拉框
+            searchOnEnterKey: true,
+            sortOrder: 'asc',
+            sidePagination: 'server',
+            paginationPreText: '上一页',
+            paginationNextText: '下一页',
+            pagination: true,
+            pageNumber: 1,//如果设置了分页，首页页码
+            pageSize: 10,
+            pageList: [10, 20, 40, 50, 100],
+            toolbar: "#toolbar",
+            showRefresh: true,
+            showToggle: true
+        });
+    }
+
+    function operateFormatter(value, row, index) {
+        return [
+            '<a href="/console/video/info-video-from.htm?referer=view&id=' + row.id + '" >',
+            '<i class="glyphicon glyphicon-search"></i>查看',
+            '</a>  ','<a href="/console/video/info-video-from.htm?referer=update&id=' + row.id + '" >',
+            '<i class="glyphicon glyphicon-edit"></i>修改',
+            '</a>  ',
+            '<a class="remove" href="javascript:void(0);">',
+            '<i class="glyphicon glyphicon-remove"></i>删除',
+            '</a>'
+        ].join('');
+    }
+
+    window.operateEvents = {
+        'click .remove': function (e, value, row, index) {
+            operaModel.delRow(row.id, '/console/video/delete', 'id');
+        }
+    };
+</script>
+</html>

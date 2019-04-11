@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/index-lol.css" />
+<script type="text/javascript" src="/js/jquery-1.11.3.js"></script>
+<script type="text/javascript">
+	$(function(){
+		bindData();
+		bindEvents();
+	})
+	
+	function bindData(){
+		var keyword = $("#jSearchHeroInput").val();
+
+		$.ajax({
+			url: '/champion/getChampionAll',
+			type: 'post',
+			dataType: 'json',
+			cache: 'false',
+			data: {
+				keyword: keyword
+			},
+			success: function(response){
+				console.log(response);
+				if(response.code == "200"){
+					var txt = '';
+					
+					$("#jSearchHeroDiv").empty();
+					$.each(response.data, function(i, item){
+						txt = '<li>\
+							        <a href="https://lol.qq.com/data/info-defail.shtml?id={0}" title="{1}">\
+							        	<img src="{2}" alt="{3}">\
+							        	<p>{4}</p>\
+							        	<span class="sbg">\
+							        		<i class="commspr commico-search"></i>\
+							        	</span>\
+						        	</a>\
+					        	</li>';
+					     txt = txt.replace('{0}', item.id)
+					     			.replace('{1}', item.title+" "+item.name)
+					     			.replace('{2}', item.headportrait)
+					     			.replace('{3}', item.title+" "+item.name)
+					     			.replace('{4}', item.title)
+					     			;
+					     $("#jSearchHeroDiv").append(txt);
+					     
+					     			
+					});
+				}
+			}
+			
+		})
+		
+	}
+	
+	
+	function  bindEvents(){
+
+		$("#jSearchHeroInput").change(function(){
+			bindData();
+		});
+	}
+</script>
+</head>
+<body>
+
+	<div class="clearfix info-showbox">
+
+		<ul id="seleteChecklist" class="selete-checklist">
+			<li class="selete-item current"><span class="ms-radio"><i
+					class="i"></i></span><label data-id="">所有英雄</label></li>
+			<li class="selete-item"><span class="ms-radio"><i
+					class="i"></i></span><label data-id="Fighter">战士</label></li>
+			<li class="selete-item"><span class="ms-radio"><i
+					class="i"></i></span><label data-id="Mage">法师</label></li>
+			<li class="selete-item"><span class="ms-radio"><i
+					class="i"></i></span><label data-id="Assassin">刺客</label></li>
+			<li class="selete-item"><span class="ms-radio"><i
+					class="i"></i></span><label data-id="Tank">坦克</label></li>
+			<li class="selete-item"><span class="ms-radio"><i
+					class="i"></i></span><label data-id="Marksman">射手</label></li>
+			<li class="selete-item"><span class="ms-radio"><i
+					class="i"></i></span><label data-id="Support">辅助</label></li>
+		</ul>
+		<div class="searchbox info-searchbox">
+
+			<input id="jSearchHeroInput" class="input-search" type="text"
+				placeholder="请输入您要搜索的英雄名" value=""> <span
+				class="publicspr tnd btn-search">搜索</span>
+		</div>
+		<ul id="jSearchHeroDiv" class="imgtextlist">
+			<!-- <li>
+	        	<a href="https://lol.qq.com/data/info-defail.shtml?id=Aatrox" title="暗裔剑魔 亚托克斯">
+		        	<img src="//ossweb-img.qq.com/images/lol/img/champion/Aatrox.png" alt="暗裔剑魔 亚托克斯">
+		        	<p>暗裔剑魔</p>
+		        	<span class="sbg">
+		        		<i class="commspr commico-search"></i>
+		        	</span>
+	        	</a>
+        	</li> -->
+			<li></li>
+		</ul>
+	</div>
+</body>
+</html>

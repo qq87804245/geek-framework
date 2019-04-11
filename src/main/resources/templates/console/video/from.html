@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="console/header"></head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>所有表单元素
+                        <small>包括自定义样式的复选和单选按钮</small>
+                    </h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="form_basic.html#">选项1</a>
+                            </li>
+                            <li><a href="form_basic.html#">选项2</a>
+                            </li>
+                        </ul>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <form action="" method="post" class="form-horizontal">
+
+                        <input type="hidden" name="id" th:value="${video.id}">
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">名字：</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="name" class="form-control" placeholder="请输入名字"
+                                       th:value="${video.name}" th:disabled="${referer=='view'}"> <span
+                                    class="help-block m-b-none">说明文字</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">文件大小：</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="size" class="form-control" placeholder="请输入文件大小"
+                                       th:value="${video.size}" th:disabled="${referer=='view'}"> <span
+                                    class="help-block m-b-none">说明文字</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">文件类型：</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="type" class="form-control" placeholder="请输入文件类型"
+                                       th:value="${video.type}" th:disabled="${referer=='view'}"> <span
+                                    class="help-block m-b-none">说明文字</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">状态：</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" name="status" th:disabled="${referer=='view'}">
+                                    <option value="0" th:selected="${video.status == 0}">0</option>
+                                    <option value="1" th:selected="${video.status == 1}">1</option>
+                                    <option value="2" th:selected="${video.status == 2}">2</option>
+                                    <option value="3" th:selected="${video.status == 3}">3</option>
+                                </select>
+                                <span class="help-block m-b-none">说明文字</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">封面图片：</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="coverPicture" class="form-control"
+                                       th:value="${video.coverPicture}" th:disabled="${referer=='view'}"
+                                       placeholder="请输入封面图片">
+                                <span
+                                        class="help-block m-b-none">说明文字</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">文件路径：</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="filePath" class="form-control" placeholder="请输入文件路径"
+                                       th:value="${video.filePath}" th:disabled="${referer=='view'}">
+                                <span
+                                        class="help-block m-b-none">说明文字</span>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <input type="button" class="btn btn-primary" id="submit" value="提交"/>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:include="console/footer"></div>
+</body>
+
+<script>
+    var referer = '[[${referer}]]';
+
+
+    $(function () {
+        if (referer == "view") {
+            $("#submit").hide();
+        }
+    });
+
+
+    console.log("referer", referer);
+    $("#submit").click(function () {
+        if (referer == 'add' || referer == 'update') {
+            var $this = $(this);
+            var $form = $(document.forms[0]);
+            $.ajax({
+                url: "/console/video/" + referer,
+                type: "post",
+                async: false,
+                dataType: "json",
+                data: $form.serializeArray(),
+                success: function (resultData) {
+                    console.log(resultData);
+                    if (resultData.code == "200") {
+                        layerMsg(resultData.message, 1, 1000, function () {
+                            location.href = "/console/video/info-video-index.htm";
+                        })
+
+                    } else {
+                        layer.msg(resultData.message, {icon: 2});
+                    }
+
+                }
+            })
+        }
+    });
+
+
+</script>
+</html>
