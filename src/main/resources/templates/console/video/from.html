@@ -7,9 +7,7 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>所有表单元素
-                        <small>包括自定义样式的复选和单选按钮</small>
-                    </h5>
+                    <h5 id="title"></h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -110,16 +108,19 @@
 
 <script>
     var referer = '[[${referer}]]';
-
-
+    var $title = $("#title");
     $(function () {
         if (referer == "view") {
             $("#submit").hide();
+            $title.html("详情");
+        }
+        if(referer == "add"){
+            $title.html("添加");
+        } if(referer == "update"){
+            $title.html("修改");
         }
     });
 
-
-    console.log("referer", referer);
     $("#submit").click(function () {
         if (referer == 'add' || referer == 'update') {
             var $this = $(this);

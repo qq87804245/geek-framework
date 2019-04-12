@@ -1,4 +1,4 @@
-package com.geekcattle.config;
+package com.geekcattle.config.mybatis;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
