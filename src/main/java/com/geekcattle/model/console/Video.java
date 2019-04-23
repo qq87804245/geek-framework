@@ -16,7 +16,7 @@ public class Video extends Base {
 
 	private Integer id;
 
-	@ApiModelProperty(value = "视频名称", name = "name", example = "视频111")
+	@ApiModelProperty(value = "视频名称")
 	private String name;
 
 	private Date createTime;
@@ -33,4 +33,22 @@ public class Video extends Base {
 
 	private String type;
 
+	private String tag;
+
+	public Video() {}
+	public Video(Integer id) {
+		this.id = id;
+	}
+	public Video(Integer id, String name, Date createTime, Date updateTime, Integer status, String filePath, String coverPicture, String size, String type, String tag) {
+		this.id = id;
+		this.name = name;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
+		this.status = status;
+		this.filePath = filePath;
+		this.coverPicture = coverPicture;
+		this.size = size;
+		this.type = type;
+		this.tag = tag;
+	}
 }

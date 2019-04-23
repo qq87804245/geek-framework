@@ -11,7 +11,7 @@
     <div class="row row-lg">
         <div class="col-sm-12">
             <div id="toolbar">
-                <a href="/console/video/info-video-from.htm?referer=add" class="btn btn-primary">添加</a>
+                <a href="/console/video/info-video-from.htm?referer=save" class="btn btn-primary">添加</a>
             </div>
             <table id="DataGrid" data-mobile-responsive="true"></table>
 
@@ -41,8 +41,8 @@
                 {title: "状态", field: "status"},
                 {title: "创建时间", field: "createTime"},
                 {title: "修改时间", field: "updateTime"},
-                {title: "文件路径", field: "filePath"},
-                {title: "封面图片", field: "coverPicture"},
+                //{title: "文件路径", field: "filePath"},
+                //{title: "封面图片", field: "coverPicture"},
                 {title: "操作", field: "operate", align: 'center', events: operateEvents, formatter: operateFormatter}
             ],
             url: '/console/video/list',

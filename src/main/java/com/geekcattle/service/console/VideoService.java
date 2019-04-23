@@ -68,7 +68,7 @@ public class VideoService {
 	 * @throws IOException
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public ResultData addVideo(Video request) throws IOException {
+	public ResultData saveVideo(Video request) throws IOException {
 		log.info("添加,请求参数====>" + JSON.toJSONString(request));
 		// 检查必填参数项是否空
 		checkParamsForAdd(request);
@@ -76,7 +76,7 @@ public class VideoService {
 		ResultData data = new ResultData();
 
 		// 添加
-		int i = videoMapper.addVideo(request);
+		int i = videoMapper.saveVideo(request);
 		if (i == 0) {
 			throw new ServiceException(ExceptionConstants.ADD_FAIL);
 		}

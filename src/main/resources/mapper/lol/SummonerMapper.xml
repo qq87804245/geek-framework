@@ -1,72 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.geekcattle.mapper.lol.SummonerMapper">
-
-	<!--基础列 -->
-	<sql id="Base_Column_List">
-		username,password,serverid,name,level,gamevoucher,gamecurrency,headportrait
-	</sql>
-
-	<!--根据Id查询 -->
-	<select id="getSummonerById" resultType="Summoner"
-		parameterType="Summoner">
-		select
-		<include refid="Base_Column_List" />
-		from summoner where id=#{id}
-	</select>
-
-	<!--多条件查询 -->
-	<select id="getSummonerByParams" resultType="Summoner"
-		parameterType="Summoner">
-		select
-		<include refid="Base_Column_List" />
-		from summoner
-		where 1=1
-		<if test="username != null"> and username=#{username}</if>
-		<if test="password != null"> and password=#{password}</if>
-		<if test="serverid != null"> and serverid=#{serverid}</if>
-		<if test="name != null"> and name=#{name}</if>
-		<if test="level != null"> and level=#{level}</if>
-		<if test="gamevoucher != null"> and gamevoucher=#{gamevoucher}</if>
-		<if test="gamecurrency != null"> and gamecurrency=#{gamecurrency}</if>
-		<if test="headportrait != null"> and headportrait=#{headportrait}</if>
-	</select>
-
-	<!--添加 -->	<insert id="addSummoner" parameterType="Summoner">		insert into summoner
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="username != null">username,</if>
-			<if test="password != null">password,</if>
-			<if test="serverid != null">serverid,</if>
-			<if test="name != null">name,</if>
-			<if test="level != null">level,</if>
-			<if test="gamevoucher != null">gamevoucher,</if>
-			<if test="gamecurrency != null">gamecurrency,</if>
-			<if test="headportrait != null">headportrait,</if>		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="username != null ">#{username},</if>
-			<if test="password != null ">#{password},</if>
-			<if test="serverid != null ">#{serverid},</if>
-			<if test="name != null ">#{name},</if>
-			<if test="level != null ">#{level},</if>
-			<if test="gamevoucher != null ">#{gamevoucher},</if>
-			<if test="gamecurrency != null ">#{gamecurrency},</if>
-			<if test="headportrait != null ">#{headportrait},</if>
-		</trim>
-	</insert>
-
-	<!--根据Id修改 -->	<update id="updateSummonerById" parameterType="Summoner">		update summoner
-		<set>
-			<if test="username != null">username=#{username},</if>
-			<if test="password != null">password=#{password},</if>
-			<if test="serverid != null">serverid=#{serverid},</if>
-			<if test="name != null">name=#{name},</if>
-			<if test="level != null">level=#{level},</if>
-			<if test="gamevoucher != null">gamevoucher=#{gamevoucher},</if>
-			<if test="gamecurrency != null">gamecurrency=#{gamecurrency},</if>
-			<if test="headportrait != null">headportrait=#{headportrait},</if>
-		</set>
-		where id=#{id}
-	</update>
-
-	<!--根据Id删除 -->	<delete id="deleteSummonerById" parameterType="Summoner"> delete from		summoner where id=#{id}
-	</delete></mapper>

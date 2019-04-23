@@ -56,7 +56,7 @@
 
 
 	<!--添加-->
-	<insert id="addVideo"  parameterType="Video">
+	<insert id="saveVideo"  parameterType="Video">
 		insert into video
 		<trim prefix="(" suffix=")" suffixOverrides="," >
 			<if test="id != null">id,</if>

@@ -39,16 +39,7 @@ public class VideoController {
     private VideoService videoService;
 
 
-    @RequestMapping(value = "//index.htm")
-    public String toVideo() {
-        return ResultConstants.viewToForward("video/index");
-    }
 
-    @RequestMapping(value = "//play.htm")
-    public String toPlay(String videoName, Model model) {
-        model.addAttribute("videoUrl", "/video/" + videoName);
-        return ResultConstants.viewToForward("video/play");
-    }
 
 
     @RequestMapping(value = "/info-video-index.htm")
@@ -114,10 +105,10 @@ public class VideoController {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/save", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
-    public ResultData addVideo(Video request) throws IOException {
-        return videoService.addVideo(request);
+    public ResultData saveVideo(Video request) throws IOException {
+        return videoService.saveVideo(request);
     }
 
     /**

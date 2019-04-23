@@ -29,7 +29,7 @@ public interface VideoMapper extends CustomerMapper<Video> {
 	 * @param video
 	 * @return
 	 */
-	public int addVideo(Video video);
+	public int saveVideo(Video video);
 
 	/**
 	 * 根据Id修改

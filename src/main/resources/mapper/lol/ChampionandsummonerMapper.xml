@@ -1,56 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.geekcattle.mapper.lol.ChampionandsummonerMapper">
-
-	<!--基础列 -->
-	<sql id="Base_Column_List">
-		summonerid,summonerserverid,championid,purchasetime
-	</sql>
-
-	<!--根据Id查询 -->
-	<select id="getChampionandsummonerById" resultType="Championandsummoner"
-		parameterType="Championandsummoner">
-		select
-		<include refid="Base_Column_List" />
-		from championandsummoner where id=#{id}
-	</select>
-
-	<!--多条件查询 -->
-	<select id="getChampionandsummonerByParams" resultType="Championandsummoner"
-		parameterType="Championandsummoner">
-		select
-		<include refid="Base_Column_List" />
-		from championandsummoner
-		where 1=1
-		<if test="summonerid != null"> and summonerid=#{summonerid}</if>
-		<if test="summonerserverid != null"> and summonerserverid=#{summonerserverid}</if>
-		<if test="championid != null"> and championid=#{championid}</if>
-		<if test="purchasetime != null"> and purchasetime=#{purchasetime}</if>
-	</select>
-
-	<!--添加 -->	<insert id="addChampionandsummoner" parameterType="Championandsummoner">		insert into championandsummoner
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="summonerid != null">summonerid,</if>
-			<if test="summonerserverid != null">summonerserverid,</if>
-			<if test="championid != null">championid,</if>
-			<if test="purchasetime != null">purchasetime,</if>		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="summonerid != null ">#{summonerid},</if>
-			<if test="summonerserverid != null ">#{summonerserverid},</if>
-			<if test="championid != null ">#{championid},</if>
-			<if test="purchasetime != null ">#{purchasetime},</if>
-		</trim>
-	</insert>
-
-	<!--根据Id修改 -->	<update id="updateChampionandsummonerById" parameterType="Championandsummoner">		update championandsummoner
-		<set>
-			<if test="summonerid != null">summonerid=#{summonerid},</if>
-			<if test="summonerserverid != null">summonerserverid=#{summonerserverid},</if>
-			<if test="championid != null">championid=#{championid},</if>
-			<if test="purchasetime != null">purchasetime=#{purchasetime},</if>
-		</set>
-		where id=#{id}
-	</update>
-
-	<!--根据Id删除 -->	<delete id="deleteChampionandsummonerById" parameterType="Championandsummoner"> delete		from championandsummoner where id=#{id}
-	</delete></mapper>

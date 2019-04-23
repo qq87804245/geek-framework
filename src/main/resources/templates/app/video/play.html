@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -16,8 +16,8 @@
     </style>
 </head>
 <body>
-<video controls="controls" poster="/video/ad-01.png">
-    <source th:src="${videoUrl}" tppabs="/video/a.mp4" type="video/mp4">
+<video controls="controls" th:poster="${video.coverPicture}" style="width: 100%;" >
+    <source th:src="${video.filePath}" tppabs="" type="video/mp4">
     您的浏览器不支持video标签，请升级到最新浏览器.
 </video>
 </body>
