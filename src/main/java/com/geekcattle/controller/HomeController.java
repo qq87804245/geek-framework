@@ -32,10 +32,10 @@ public class HomeController {
 		return ResultConstants.viewToRedirect("/console/index.htm");
 	}
 
-	@RequestMapping("/welcome/{code}")
-	@ResponseBody
-	public String welcome(@PathVariable String code){
-		return "Welcome:"+code;
+	@RequestMapping("/welcome")
+	public String welcome(){
+		//@PathVariable
+		return "welcome";
 	}
 	
 }

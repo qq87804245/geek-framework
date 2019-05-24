@@ -73,4 +73,23 @@ public class User extends Base {
 	 */
 	private Date lasttime;
 
+	public User(){};
+	public User(Integer userid){
+		this.userid = userid;
+	};
+	public User(Integer userid, String username, String password, String name, String sex, Date birthday, String phone, String email, String photo, String token, Integer status, Date firsttime, Date lasttime) {
+		this.userid = userid;
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.sex = sex;
+		this.birthday = birthday;
+		this.phone = phone;
+		this.email = email;
+		this.photo = photo;
+		this.token = token;
+		this.status = status;
+		this.firsttime = firsttime;
+		this.lasttime = lasttime;
+	}
 }

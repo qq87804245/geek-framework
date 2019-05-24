@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        window.onload = function(){
+            new Vue({
+                el:"#box",
+                data:{
+                    msg:"welcome to  this page ",
+                    array:["111","222","333"],
+                    json : {a:"aaa",b:"bbb",c:"ccc"}
+                },
+                methods:{
+                    add:function(){
+
+                    }
+                }
+            });
+        }
+
+    </script>
+</head>
+<body>
+<div id="box">
+    {{msg}} {{array}}  {{json}}
+    <ul>
+        <li  v-for="item in array">
+            {{item}}  {{$index}}
+        </li>
+    </ul>
+
+    <ul>
+        <li  v-for="item in json">
+            {{item}}  {{$index}}  {{$key}}
+        </li>
+    </ul>
+
+</div>
+</body>
+</html>
