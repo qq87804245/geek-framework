@@ -19,7 +19,7 @@
 		<!-- 编码 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- ali json -->
-		<fastjson.version>1.2.39</fastjson.version>
+		<fastjson.version>1.2.83</fastjson.version>
 		<!-- 数据库 -->
 		<mysql.version>5.1.46</mysql.version>
 		<sharding-jdbc.version>1.4.1</sharding-jdbc.version>
