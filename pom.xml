@@ -29,7 +29,7 @@
 		<mybatis-plus.version>2.1.4</mybatis-plus.version>
 
 		<!-- MyBatis -->
-		<pagehelper.version>4.1.1</pagehelper.version>
+		<pagehelper.version>5.3.1</pagehelper.version>
 		<mapper.version>3.3.9</mapper.version>
 		<!--maven-plugin -->
 		<lombok-maven-plugin.version>1.16.6.1</lombok-maven-plugin.version>
